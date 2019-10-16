@@ -18,7 +18,7 @@ const CalCell = props => {
     console.log(`todos: ${todos.todoNum}`);
     let todoTag = [];
     for (let i = 0; i < todos.todoNum; i++) {
-      todoTag.push(<TodoTag>(제목없음)</TodoTag>);
+      todoTag.push(<TodoTag key={i}>(제목없음)</TodoTag>);
     }
     return todoTag;
   };
@@ -37,7 +37,7 @@ const CalCell = props => {
   );
 };
 
-const Cell = styled.td.attrs(
+const Cell = styled.div.attrs(
   ({ isSelected, weekLength, index, isEndWeek }) => ({
     style: {
       color: isSelected ? `#333333` : `#cccccc`,
@@ -49,6 +49,7 @@ const Cell = styled.td.attrs(
 )`
   text-align: center;
   padding-top: 2px;
+  width: ${100 / 7}%;
 `;
 
 const CellSpan = styled.span.attrs(({ isToday }) => ({
@@ -65,6 +66,7 @@ const TodoTag = styled.div`
   text-align: left;
   padding-left: 3px;
   color: #333333;
+  width: ${300}%;
 `;
 
 export default CalCell;

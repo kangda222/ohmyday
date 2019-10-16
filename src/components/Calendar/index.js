@@ -36,7 +36,7 @@ const Calendar = () => {
     let calendar = [];
     for (let week = startWeek; week <= endWeek; week++) {
       calendar.push(
-        <tr>
+        <Body key={week}>
           {Array(7)
             .fill(0)
             .map((value, i) => {
@@ -56,10 +56,11 @@ const Calendar = () => {
                   weekLength={weekLength}
                   index={i}
                   isEndWeek={week === endWeek}
+                  key={current.format("MMDD")}
                 />
               );
             })}
-        </tr>
+        </Body>
       );
     }
     return calendar;
@@ -88,20 +89,18 @@ const Calendar = () => {
           <Main>{currentDate.format("YYYY MM")}</Main>
           <FormNext onClick={nextCalendar} />
         </Head>
-        <table>
-          <thead>
-            <Row>
-              <Cell>일</Cell>
-              <Cell>월</Cell>
-              <Cell>화</Cell>
-              <Cell>수</Cell>
-              <Cell>목</Cell>
-              <Cell>금</Cell>
-              <Cell>토</Cell>
-            </Row>
-          </thead>
-          <tbody>{createCalendar()}</tbody>
-        </table>
+        <div>
+          <DayHead>
+            <Cell>일</Cell>
+            <Cell>월</Cell>
+            <Cell>화</Cell>
+            <Cell>수</Cell>
+            <Cell>목</Cell>
+            <Cell>금</Cell>
+            <Cell>토</Cell>
+          </DayHead>
+          <div>{createCalendar()}</div>
+        </div>
       </Box>
     </Grid>
   );
@@ -110,16 +109,24 @@ const Calendar = () => {
 const Head = styled.div`
   display: flex;
   justify-content: row;
+  width: 100%;
+`;
+
+const DayHead = styled(Head)`
+  border-bottom: 1px solid #cccccc;
+`;
+
+const Body = styled.div`
+  display: flex;
+  justify-content: row;
+  width: 100%;
 `;
 
 const Main = styled.div``;
 
-const Cell = styled.td`
+const Cell = styled.div`
   text-align: center;
-`;
-
-const Row = styled.tr`
-  border-bottom: 1px solid #cccccc;
+  width: ${100 / 7}%;
 `;
 
 export default Calendar;
